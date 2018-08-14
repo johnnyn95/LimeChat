@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">LimeChat</string>
+    <string name="message_welcome">Welcome to LimeChat!</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="logout">Log out</string>
+    <string name="account_settings">Account Settings</string>
+</resources>

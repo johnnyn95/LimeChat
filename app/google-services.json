@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "815599143524",
+    "firebase_url": "https://limechat-6d848.firebaseio.com",
+    "project_id": "limechat-6d848",
+    "storage_bucket": "limechat-6d848.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815599143524:android:62a23545bfc8134b",
+        "android_client_info": {
+          "package_name": "com.example.jnguyen.limechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815599143524-i8qeugqmispkvfpc7i50d06r4jkt7lc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jnguyen.limechat",
+            "certificate_hash": "53f349d7522a2f1dd64130e86ca835cb4b779772"
+          }
+        },
+        {
+          "client_id": "815599143524-u97fupjbl83n7etb65cb0ucfrl4rbk7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIXXydb7zFKVObFSS6PsCS8qKgR6m3kPc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815599143524-u97fupjbl83n7etb65cb0ucfrl4rbk7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
