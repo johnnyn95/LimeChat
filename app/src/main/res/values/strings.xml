@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">LimeChat</string>
     <string name="message_welcome">Welcome to LimeChat!</string>
+    <string name="message_register">Register New Account</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
     <string name="username">Username</string>

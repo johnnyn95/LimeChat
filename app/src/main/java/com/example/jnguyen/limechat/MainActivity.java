@@ -21,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         Toolbar mToolbar =  findViewById(R.id.main_page_toolbar);
+        mToolbar.setTitle(R.string.app_name);
         setSupportActionBar(mToolbar);
+
+
 
     }
 
@@ -32,10 +35,14 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
         if (currentUser == null) {
-            Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
-            startActivity(startIntent);
-            finish();
+            startStartActivity();
         }
+    }
+
+    private void startStartActivity() {
+        Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
+        startActivity(startIntent);
+        finish();
     }
 
     @Override
@@ -47,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.main_logout_btn :
+                FirebaseAuth.getInstance().signOut();
+                recreate();
+                return true;
+            case R.id.main_settings_btn :
+
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
 }
