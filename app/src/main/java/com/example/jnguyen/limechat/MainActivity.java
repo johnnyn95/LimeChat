@@ -1,6 +1,8 @@
 package com.example.jnguyen.limechat;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,17 +16,27 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    Toolbar mToolbar;
+    private ViewPager mViewPager;
+    private LimeChatPagerAdapter mLimeChatPagerAdapter;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        Toolbar mToolbar =  findViewById(R.id.main_page_toolbar);
+        mToolbar =  findViewById(R.id.main_page_toolbar);
         mToolbar.setTitle(R.string.app_name);
         setSupportActionBar(mToolbar);
 
+        mViewPager = findViewById(R.id.main_tabPager);
+        mTabLayout = findViewById(R.id.main_tabLayout);
 
+        mLimeChatPagerAdapter = new LimeChatPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mLimeChatPagerAdapter);
+
+        mTabLayout.setupWithViewPager(mViewPager);
 
     }
 

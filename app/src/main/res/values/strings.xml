@@ -2,6 +2,8 @@
     <string name="app_name">LimeChat</string>
     <string name="message_welcome">Welcome to LimeChat!</string>
     <string name="message_register">Register New Account</string>
+    <string name="message_register_warning">Please fill the required fields</string>
+    <string name="message_login">Login into existing account</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
     <string name="username">Username</string>
@@ -9,4 +11,10 @@
     <string name="email">Email</string>
     <string name="logout">Log out</string>
     <string name="account_settings">Account Settings</string>
+    <string name="TAG_LOGIN">LOGIN</string>
+    <string name="TAG_REGISTER">REGISTER</string>
+
+    <string name="tab_requests">Requests</string>
+    <string name="tab_chats">Chats</string>
+    <string name="tab_friends">Friends</string>
 </resources>

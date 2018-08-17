@@ -35,7 +35,7 @@
         app:srcCompat="@mipmap/lime_logo" />
 
     <Button
-        android:id="@+id/btn_action_login"
+        android:id="@+id/btn_start_login"
         style="@android:style/TextAppearance.Material.Widget.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_limechat_logo" />
 
     <Button
-        android:id="@+id/btn_action_register"
+        android:id="@+id/btn_start_register"
         style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,5 +60,5 @@
         android:text="@string/action_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_action_login" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_start_login" />
 </android.support.constraint.ConstraintLayout>
