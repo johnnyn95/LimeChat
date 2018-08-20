@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_login_message"
         tools:ignore="MissingConstraints"
         android:focusable="true"/>
-    
+
     <EditText
         android:id="@+id/et_login_password"
         android:layout_width="0dp"
