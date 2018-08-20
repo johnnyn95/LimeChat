@@ -21,6 +21,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -30,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     Toolbar mToolbar;
     private FirebaseAuth mAuth;
+    private DatabaseReference mFirebaseDatabase;
     ProgressBar mProgress;
     String TAG_REGISTER = "REGISTER";//getResources().getString(R.string.TAG_REGISTER);;
 
@@ -77,22 +82,43 @@ public class RegisterActivity extends AppCompatActivity {
         warningToast.makeText(context,R.string.message_register_warning,Toast.LENGTH_SHORT).show();
     }
 
-    private void registerUser(String username,String password,String email){
+    private void registerUser(final String username, String password, String email){
         mProgress.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            mProgress.setVisibility(View.INVISIBLE);
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG_REGISTER, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent mainIntent = new Intent(RegisterActivity.this,MainActivity.class);
-                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(mainIntent);
-                            finish();
-//                            updateUI(user);
+
+                            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                            String uId = current_user.getUid();
+                            mFirebaseDatabase = FirebaseDatabase.getInstance().getReference()
+                                    .child(getResources().getString(R.string.db_Users)).child(uId);
+
+                            HashMap<String,String> userMap = new HashMap<>();
+                            userMap.put(getResources().getString(R.string.db_Name),username);
+                            userMap.put(getResources().getString(R.string.db_Status),getResources().getString(R.string.registration_message_status));
+                            userMap.put(getResources().getString(R.string.db_Image),"default");
+                            userMap.put(getResources().getString(R.string.db_ThumbImage),"default");
+
+                            mFirebaseDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()) {
+                                        mProgress.setVisibility(View.INVISIBLE);
+
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d(TAG_REGISTER, "createUserWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        startMainIntent();
+                                        // updateUI(user);
+                                    }
+                                }
+                            });
+
+
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             mProgress.setVisibility(View.INVISIBLE);
@@ -104,6 +130,12 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    private void startMainIntent(){
+        Intent mainIntent = new Intent(RegisterActivity.this,MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 }
 

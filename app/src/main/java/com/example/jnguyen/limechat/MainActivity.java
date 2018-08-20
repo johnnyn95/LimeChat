@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    Toolbar mToolbar;
+    private Toolbar mToolbar;
     private ViewPager mViewPager;
     private LimeChatPagerAdapter mLimeChatPagerAdapter;
     private TabLayout mTabLayout;
@@ -57,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    private void startSettingsActivity() {
+        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(settingsIntent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 recreate();
                 return true;
             case R.id.main_settings_btn :
-
+                startSettingsActivity();
                 return true;
         }
         return super.onOptionsItemSelected(item);

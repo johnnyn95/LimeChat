@@ -4,6 +4,8 @@
     <string name="message_register">Register New Account</string>
     <string name="message_register_warning">Please fill the required fields</string>
     <string name="message_login">Login into existing account</string>
+    <string name="message_settings">Hi,this is Rick using LimeChat!</string>
+
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
     <string name="username">Username</string>
@@ -11,10 +13,22 @@
     <string name="email">Email</string>
     <string name="logout">Log out</string>
     <string name="account_settings">Account Settings</string>
+    <string name="changeImage">Change Image</string>
+    <string name="changeStatus">Change Status</string>
+
     <string name="TAG_LOGIN">LOGIN</string>
     <string name="TAG_REGISTER">REGISTER</string>
 
     <string name="tab_requests">Requests</string>
     <string name="tab_chats">Chats</string>
     <string name="tab_friends">Friends</string>
+
+    <string name="dummyName">Rick Sanchez</string>
+    <string name="registration_message_status">Hi, I\'m new to LimeChat!</string>
+
+    <string name="db_Users">Users</string>
+    <string name="db_Name">name</string>
+    <string name="db_Status">status</string>
+    <string name="db_Image">image</string>
+    <string name="db_ThumbImage">thumb_image</string>
 </resources>
