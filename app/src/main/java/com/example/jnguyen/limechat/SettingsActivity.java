@@ -1,8 +1,11 @@
 package com.example.jnguyen.limechat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,8 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView mUsername;
     private TextView mStatus;
     private CircleImageView mImage;
+    private Button mChangeStatus;
+    private Button mChangeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,13 @@ public class SettingsActivity extends AppCompatActivity {
         mUsername = findViewById(R.id.tv_settings_displayName);
         mStatus = findViewById(R.id.tv_settings_status);
         mImage = findViewById(R.id.iv_settings_profilePicture);
+        mChangeStatus = findViewById(R.id.btn_settings_changeStatus);
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_user_uId = mCurrentUser.getUid();
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.db_Users)).child(current_user_uId);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(getResources().getString(R.string.db_Users)).child(current_user_uId);
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -49,7 +56,6 @@ public class SettingsActivity extends AppCompatActivity {
 
                 mUsername.setText(displayName);
                 mStatus.setText(status);
-//                Log.d("datasnapshot",dataSnapshot.toString());
             }
 
             @Override
@@ -57,5 +63,19 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+
+        mChangeStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startStatusActivity();
+            }
+        });
+
+
+    }
+    private void startStatusActivity(){
+        Intent statusActivity = new Intent(this,StatusActivity.class);
+        statusActivity.putExtra(getResources().getString(R.string.db_Status),mStatus.getText().toString());
+        startActivity(statusActivity);
     }
 }

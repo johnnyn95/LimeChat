@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
+                            startLoading();
                             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                             String uId = current_user.getUid();
                             mFirebaseDatabase = FirebaseDatabase.getInstance().getReference()
@@ -105,27 +105,21 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()) {
-                                        mProgress.setVisibility(View.INVISIBLE);
-
+                                        stopLoading();
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG_REGISTER, "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         startMainIntent();
-                                        // updateUI(user);
                                     }
                                 }
                             });
-
-
-
-
                         } else {
                             // If sign in fails, display a message to the user.
-                            mProgress.setVisibility(View.INVISIBLE);
+                            stopLoading();
                             Log.w(TAG_REGISTER, "createUserWith Email:failure", task.getException());
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+//
                         }
                     }
                 });
@@ -136,6 +130,21 @@ public class RegisterActivity extends AppCompatActivity {
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();
+    }
+
+    private void startLoading(){
+        mUsername.setVisibility(View.INVISIBLE);
+        mPassword.setVisibility(View.INVISIBLE);
+        mEmail.setVisibility(View.INVISIBLE);
+        btnRegister.setVisibility(View.INVISIBLE);
+        mProgress.setVisibility(View.VISIBLE);
+    }
+    private void stopLoading(){
+        mUsername.setVisibility(View.VISIBLE);
+        mPassword.setVisibility(View.VISIBLE);
+        mEmail.setVisibility(View.VISIBLE);
+        btnRegister.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.INVISIBLE);
     }
 }
 

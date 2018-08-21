@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        mProgress.setVisibility(View.VISIBLE);
+                        startLoading();
                         if (task.isSuccessful()) {
                             mProgress.setVisibility(View.INVISIBLE);
                             // Sign in success, update UI with the signed-in user's information
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            mProgress.setVisibility(View.INVISIBLE);
+                            stopLoading();
                             Log.w(TAG_LOGIN, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -93,5 +93,18 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    private void startLoading(){
+        mPassword.setVisibility(View.INVISIBLE);
+        mEmail.setVisibility(View.INVISIBLE);
+        btnLogin.setVisibility(View.INVISIBLE);
+        mProgress.setVisibility(View.VISIBLE);
+    }
+    private void stopLoading(){
+        mPassword.setVisibility(View.VISIBLE);
+        mEmail.setVisibility(View.VISIBLE);
+        btnLogin.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.INVISIBLE);
     }
 }
