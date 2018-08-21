@@ -8,6 +8,8 @@
     <string name="message_status_error">Unsuccessful status change :(</string>
     <string name="message_status_success">Status successfully changed!</string>
     <string name="message_register_success">Hi and Welcome to LimeChat!</string>
+    <string name="message_change_image_success">Successfully changing Profile Picture!</string>
+    <string name="message_change_image_error">Unsuccessfully changing Profile Picture! :(</string>
 
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
@@ -19,6 +21,7 @@
     <string name="changeImage">Change Image</string>
     <string name="changeStatus">Change Status</string>
     <string name="save_changes">Save Changes</string>
+    <string name="select_image">Select Image</string>
     <string name="TAG_LOGIN">LOGIN</string>
     <string name="TAG_REGISTER">REGISTER</string>
 
@@ -34,4 +37,6 @@
     <string name="db_Status">status</string>
     <string name="db_Image">image</string>
     <string name="db_ThumbImage">thumb_image</string>
+
+    <string name="storage_profile_images">profile_images</string>
 </resources>
