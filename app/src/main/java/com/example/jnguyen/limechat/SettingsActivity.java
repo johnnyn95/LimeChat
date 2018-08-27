@@ -1,6 +1,7 @@
 package com.example.jnguyen.limechat;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,12 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -72,7 +78,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                 mUsername.setText(displayName);
                 mStatus.setText(status);
-                Picasso.get().load(image).into(mImage);
+
+                if(!image.equals("default")){
+                    Picasso.get().load(image).placeholder(R.mipmap.rick).into(mImage);
+                }
             }
 
             @Override
@@ -115,13 +124,49 @@ public class SettingsActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 startLoading();
                 Uri resultUri = result.getUri();
-                StorageReference filepath = mStorageRef.child(getResources().getString(R.string.storage_profile_images)).child(LimeChatUtils.StringHelper.generateRandomString() + ".jpg");
+
+                StorageReference filepath = mStorageRef.child(getResources().getString(R.string.storage_profile_images))
+                        .child(LimeChatUtils.StringHelper.generateRandomString() + ".jpg");
+
+                StorageReference thumb_filepath = mStorageRef.child(getResources().getString(R.string.storage_profile_images))
+                        .child(getResources().getString(R.string.storage_thumbnail_images))
+                        .child(LimeChatUtils.StringHelper.generateRandomString() + ".jpg");
+
+                try{
+                    File file_thumb_filepath = new File(resultUri.getPath());
+                    Bitmap compressedImageBitmap = new Compressor(this)
+                            .setMaxWidth(200)
+                            .setMaxHeight(200)
+                            .setQuality(75)
+                            .compressToBitmap(file_thumb_filepath);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    compressedImageBitmap.compress(Bitmap.CompressFormat.JPEG, 75, baos);
+                    byte[] thumb_byte = baos.toByteArray();
+
+                    UploadTask thumb_uploadTask = thumb_filepath.putBytes(thumb_byte);
+                    thumb_uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if(task.isSuccessful()){
+                                String downloadLink_url = task.getResult().getDownloadUrl().toString();
+                                mDatabaseReference.child(getResources().getString(R.string.db_ThumbImage)).setValue(downloadLink_url);
+                            }
+                        }
+                    });
+
+                } catch (IOException e){
+                    Log.e(getResources().getString(R.string.TAG_SETTINGS),e.toString());
+                }
+
+
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if(task.isSuccessful()){
 
                             String downloadLink_url = task.getResult().getDownloadUrl().toString();
+
                             mDatabaseReference.child(getResources().getString(R.string.db_Image)).setValue(downloadLink_url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -142,6 +187,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
     }
+
     private void startLoading(){
         mUsername.setVisibility(View.INVISIBLE);
         mStatus.setVisibility(View.INVISIBLE);

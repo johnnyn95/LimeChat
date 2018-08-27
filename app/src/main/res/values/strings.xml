@@ -24,6 +24,7 @@
     <string name="select_image">Select Image</string>
     <string name="TAG_LOGIN">LOGIN</string>
     <string name="TAG_REGISTER">REGISTER</string>
+    <string name="TAG_SETTINGS">SETTINGS</string>
 
     <string name="tab_requests">Requests</string>
     <string name="tab_chats">Chats</string>
@@ -39,4 +40,5 @@
     <string name="db_ThumbImage">thumb_image</string>
 
     <string name="storage_profile_images">profile_images</string>
+    <string name="storage_thumbnail_images">thumbs</string>
 </resources>
